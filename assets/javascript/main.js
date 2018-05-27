@@ -49,17 +49,21 @@ var characters = [ //playable characters/enemies
 	}
 ];
 //vars to hold changing values
-var playerHp = 0;
-var playerAttack = 0;
-var enemyHp = 0;
+var playerHp;
+var playerAttack;
+var enemyHp;
+var enemyAttack;
 var playerId;
 var enemyId;
 var playerDiv;
+var enemyDiv;
+var enemiesLeft = characters.length-1;
+var inCombat = false;
 
 function gameInit() { //set up game
 	for (var i = 0; i < characters.length; i++) { //for each character in array
 		var characterDiv = $(document.createElement("div")); //create new div to house character info
-		characterDiv.attr("class", "character-div select-player-character");
+		characterDiv.attr("class", "character-div");
 		characterDiv.attr("data-index", i); //attaches "ID" to div to distinguish characters from each other
 
 		characterDiv.append("<img src=" +characters[i].image +" class='character-image'/>"); //add character image
@@ -74,10 +78,19 @@ function gameInit() { //set up game
 	}
 }
 
+function updateStats() { //update stat display
+
+}
+
+function progressGame() { //check win/loss, remove defeated enemies
+
+}
+
 $(document).ready(function() {
 	gameInit();
 
-	$(document).on("click", ".select-player-character", function() { //CHARACTER SELECTION
+	//CHARACTER SELECTION
+	$("#player-select").on("click", ".character-div", function() {
 		playerId = parseInt($(this).attr("data-index")); //extract index number of selected character
 		playerHp = characters[playerId].hp; //set player HP
 		playerAttack = characters[playerId].attack; //set player Attack
@@ -93,5 +106,23 @@ $(document).ready(function() {
 				$(currentDiv).detach().appendTo("#enemy-select");
 			}
 		}
+	});
+	
+	//ENEMY SELECTION
+	$("#enemy-select").on("click", ".enemy-character", function() {
+		if (!inCombat) {
+			enemyId = parseInt($(this).attr("data-index")); //extract index number of selected character
+			enemyHp = characters[enemyId].hp; //set enemy HP
+			enemyAttack = characters[enemyId].counter; //set enemy Attack
+
+			enemyDiv = $("div[data-index=" +enemyId +"]"); //store location of enemy character div
+			$(enemyDiv).detach().appendTo("#defender-area"); //move PC to defender area
+			inCombat = true;
+		}
+	});
+
+	//ATTACKING
+	$("#defender-area").on("click", "#attack-button", function() {
+
 	});
 });
