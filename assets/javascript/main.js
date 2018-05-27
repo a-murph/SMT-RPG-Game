@@ -164,6 +164,8 @@ $(document).ready(function() {
 		enemyId = null;
 		enemiesLeft = characters.length-1;
 		inCombat = false;
+		$(".player-character").remove() //remove player div
+		$("#battle-info").text(""); //reset battle text
 		gameInit(); //re-initialize game
 	});
 });
