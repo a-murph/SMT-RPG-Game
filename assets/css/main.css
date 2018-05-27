@@ -1,0 +1,9 @@
+img {
+	width: 300px;
+}
+.character-div {
+	display: inline-block;
+}
+.hidden {
+	display: none;
+}
