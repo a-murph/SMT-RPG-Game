@@ -191,6 +191,8 @@ $(document).ready(function() {
 		$("#reset-button").attr("class", "hidden"); //hide reset button
 		$("#enemy-select").attr("class", "hidden"); //hide enemy select
 
+		$("#attack-button").prop("disabled", false); //re-enable attack button
+
 		themeMusic.pause();
 
 		gameInit(); //re-initialize game
