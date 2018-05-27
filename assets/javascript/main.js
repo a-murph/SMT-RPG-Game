@@ -68,6 +68,7 @@ function gameInit() { //set up game
 
 		var stats = $(document.createElement("div")); //create new div for character stats
 		stats.attr("class", "character-stats");
+		stats.append("<span class='character-name'>" +characters[i].name +"</span>") //add name span
 		stats.append("<span class='character-attack'>Atk: " +characters[i].attack +"</span>") //add attack span
 		stats.append("<span class='character-hp'>HP: " +characters[i].hp +"</span>") //add HP span
 		characterDiv.append(stats); //place stats inside character div
@@ -88,6 +89,7 @@ function progressGame() { //check win/loss, remove defeated enemies
 	if (playerHp <= 0) { //if player HP is 0 or below
 		$("#attack-button").prop("disabled", true); //diable attack button
 		$("#battle-info").append("<p>You have been defeated! Game Over.</p>"); //display game over message
+		$("#reset-button").attr("class", ""); //unhide reset button
 	}
 	else if (enemyHp <= 0) { //if enemy HP is 0 or below
 		$(".current-enemy").remove(); //remove enemy character div from DOM
@@ -95,6 +97,7 @@ function progressGame() { //check win/loss, remove defeated enemies
 		enemiesLeft--; //reduce counter of enemies remaining
 		if (enemiesLeft == 0) { //if no enemies remain
 			$("#battle-info").text("You have defeated all enemies! You Win!"); //display victory message
+			$("#reset-button").attr("class", ""); //unhide reset button
 		}
 		else { //if there are still enemies left
 			//display won battle message
@@ -148,5 +151,19 @@ $(document).ready(function() {
 			updateDisplay();
 			progressGame();
 		}
+	});
+	
+	//RESET GAME
+	$("#defender-area").on("click", "#reset-button", function() {
+		//reset all variables
+		playerHp = null;
+		playerAttack = null;
+		enemyHp = null;
+		enemyAttack = null;
+		playerId = null;
+		enemyId = null;
+		enemiesLeft = characters.length-1;
+		inCombat = false;
+		gameInit(); //re-initialize game
 	});
 });
