@@ -81,8 +81,8 @@ function updateDisplay() { //update stats and battle info
 	$(".player-character .character-attack").text("Atk: " +playerAttack);
 	$(".player-character .character-hp").text("HP: " +playerHp);
 	$(".current-enemy .character-hp").text("HP: " +enemyHp);
-	$("#battle-info").text("You took " +enemyAttack +" damage."
-		+characters[enemyId].name +" took " +(playerAttack-characters[playerId].attack) +" damage.");
+	$("#battle-info").html("<p>You took " +enemyAttack +" damage.</p><p>"
+		+characters[enemyId].name +" took " +(playerAttack-characters[playerId].attack) +" damage.</p>");
 }
 
 function progressGame() { //check win/loss, remove defeated enemies
@@ -96,12 +96,12 @@ function progressGame() { //check win/loss, remove defeated enemies
 		inCombat = false;
 		enemiesLeft--; //reduce counter of enemies remaining
 		if (enemiesLeft == 0) { //if no enemies remain
-			$("#battle-info").text("You have defeated all enemies! You Win!"); //display victory message
+			$("#battle-info").append("<p>You have defeated all enemies! You Win!</p>"); //display victory message
 			$("#reset-button").attr("class", ""); //unhide reset button
 		}
 		else { //if there are still enemies left
 			//display won battle message
-			$("#battle-info").text("You have defeated " +characters[enemyId].name +"! Please select a new opponent.");
+			$("#battle-info").append("<p>You have defeated " +characters[enemyId].name +"! Please select a new opponent.</p>");
 		}
 	}
 }
@@ -126,6 +126,13 @@ $(document).ready(function() {
 				$(currentDiv).detach().appendTo("#enemy-select");
 			}
 		}
+
+		$("#player-select").attr("class", "hidden"); //hide character select
+		$("#player-area").attr("class", ""); //unhide player area
+		$("#defender-area").attr("class", ""); //unhide defender area
+		$("#defender-area h2").attr("class", ""); //unhide defender area title
+		$("#attack-button").attr("class", ""); //unhide attack button
+		$("#enemy-select").attr("class", ""); //unhide enemy select
 	});
 	
 	//ENEMY SELECTION
@@ -137,8 +144,9 @@ $(document).ready(function() {
 
 			var enemyDiv = $("div[data-index=" +enemyId +"]"); //store location of enemy character div
 			enemyDiv.attr("class", "character-div enemy-character current-enemy"); //adds current-enemy class
-			$(enemyDiv).detach().appendTo("#defender-area"); //move PC to defender area
+			$(enemyDiv).detach().prependTo("#combat-area"); //move PC to defender area
 			inCombat = true;
+			$("#battle-info").empty();
 		}
 	});
 
@@ -166,6 +174,14 @@ $(document).ready(function() {
 		inCombat = false;
 		$(".player-character").remove() //remove player div
 		$("#battle-info").text(""); //reset battle text
+
+		$("#player-select").attr("class", ""); //unhide character select
+		$("#player-area").attr("class", "hidden"); //hide player area
+		$("#defender-area").attr("class", "hidden"); //hide defender area
+		$("#defender-area h2").attr("class", "hidden"); //hide defender area title
+		$("#attack-button").attr("class", "hidden"); //hide attack button
+		$("#enemy-select").attr("class", "hidden"); //hide enemy select
+
 		gameInit(); //re-initialize game
 	});
 });

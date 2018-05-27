@@ -20,17 +20,19 @@
 	<section id="player-select">
 		<h2>Select a character</h2>
 	</section>
-	<section id="player-area">
+	<section id="player-area" class="hidden">
 		<h2>Player Character</h2>
 	</section>
-	<section id="defender-area">
-		<h2>Current Opponent</h2>
-		<button id="attack-button">Attack</button>
-		<button id="reset-button" class="hidden">Reset Game</button>
-		<span id="battle-info"></span>
-	</section>
-	<section id="enemy-select">
+	<section id="enemy-select" class="hidden">
 		<h2>Remaining Enemies</h2>
+	</section>
+	<section id="defender-area" class="hidden">
+		<h2 class="hidden">Current Opponent</h2>
+		<section id="combat-area">
+			<button id="attack-button" class="hidden">Attack</button>
+			<button id="reset-button" class="hidden">Reset Game</button>
+			<span id="battle-info"></span>
+		</section>
 	</section>
 </div>
 </body>

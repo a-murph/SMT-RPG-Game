@@ -1,9 +1,92 @@
-img {
-	width: 300px;
+/* AFFECTS ALL SECTIONS */
+body {
+	background: #333;
+	color: #eee;
+	font-family: Arial, Helvetica, sans-serif;
 }
-.character-div {
-	display: inline-block;
+.container {
+	width: 1200px;
+	margin: 0 auto;
 }
 .hidden {
 	display: none;
+}
+h2 {
+	text-align: center;
+	font-size: 20px;
+}
+
+/* TITLE */
+#title {
+	text-align: center;
+	font-size: 32px;
+	margin: 10px;
+	font-weight: bold;
+}
+
+/* CHARACTER SELECTION */
+#player-select {
+	width: 816px;
+	margin: 0 auto;
+}
+
+/* CHARACTER CARDS */
+.character-image {
+	height: 375px;
+	width: 250px;
+}
+.character-div {
+	display: inline-block;
+	margin: 10px;
+	border: 1px solid #640000;
+}
+.character-name {
+	display: block;
+	text-align: center;
+	font-weight: bold;
+	background: black;
+	color: #ba0909;
+	margin-bottom: 5px;
+}
+.character-attack {
+	float: left;
+	margin-left: 5px;
+	margin-bottom: 5px;
+}
+.character-hp {
+	float: right;
+	margin-right: 5px;
+	margin-bottom: 5px;
+}
+
+/* PLAYER AREA */
+#player-area {
+	width: 272px;
+	float: left;
+}
+
+/* ENEMY SELECTION */
+#enemy-select {
+	width: 544px;
+	float: right;
+}
+
+/* DEFENDER AREA */
+#defender-area {
+	display: inline-block;
+	width: 272px;
+	margin-left: 56px;
+	margin-right: 56px;
+}
+#battle-info {
+	line-height: 1.2em;
+}
+#battle-info p {
+	margin-bottom: 8px;
+}
+#defender-area button {
+	width: 252px;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 5px;
 }
