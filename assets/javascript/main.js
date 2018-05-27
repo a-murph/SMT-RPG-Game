@@ -77,7 +77,7 @@ function gameInit() { //set up game
 $(document).ready(function() {
 	gameInit();
 
-	$(".select-player-character").on("click", function() { //selecting a character
+	$(document).on("click", ".select-player-character", function() { //CHARACTER SELECTION
 		playerId = parseInt($(this).attr("data-index")); //extract index number of selected character
 		playerHp = characters[playerId].hp; //set player HP
 		playerAttack = characters[playerId].attack; //set player Attack
