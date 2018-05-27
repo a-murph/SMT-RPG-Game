@@ -1,41 +1,41 @@
 var characters = [ //playable characters/enemies
 	{
 		name: "Orpheus",
-		hp: 100,
-		attack: 5,
-		counter: 5,
+		hp: 60,
+		attack: 10,
+		counter: 12,
 		image: "assets/images/orpheus.jpg",
 		music: "",
 	},
 	{
 		name: "Izanagi",
-		hp: 100,
-		attack: 5,
-		counter: 5,
+		hp: 80,
+		attack: 7,
+		counter: 8,
 		image: "assets/images/izanagi.jpg",
 		music: "",
 	},
 	{
 		name: "Arsene",
-		hp: 100,
-		attack: 5,
-		counter: 5,
+		hp: 70,
+		attack: 8,
+		counter: 10,
 		image: "assets/images/arsene.jpg",
 		music: "",
 	},
 	{
 		name: "Nyx Avatar",
-		hp: 100,
-		attack: 5,
-		counter: 5,
+		hp: 150,
+		attack: 2,
+		counter: 3,
 		image: "assets/images/nyx.jpg",
 		music: "",
 	},
 	{
 		name: "Izanami no Okami",
-		hp: 100,
-		attack: 5,
-		counter: 5,
+		hp: 120,
+		attack: 4,
+		counter: 4,
 		image: "assets/images/izanami.jpg",
 		music: "",
 	},
@@ -123,10 +123,11 @@ $(document).ready(function() {
 			if (i !== playerId) {
 				var currentDiv = $("div[data-index=" +i +"]"); //select div that matches current index
 				currentDiv.attr("class", "character-div enemy-character"); //change class to enemy
-				$(currentDiv).detach().appendTo("#enemy-select");
+				$(currentDiv).detach().appendTo("#enemy-select"); //move to enemy select area
+				$("div[data-index=" +i +"] .character-stats .character-attack").text("Atk: " +characters[i].counter); //change attack stat to counter-attack stat
 			}
 		}
-
+		
 		$("#player-select").attr("class", "hidden"); //hide character select
 		$("#player-area").attr("class", ""); //unhide player area
 		$("#defender-area").attr("class", ""); //unhide defender area
@@ -173,6 +174,7 @@ $(document).ready(function() {
 		enemiesLeft = characters.length-1;
 		inCombat = false;
 		$(".player-character").remove() //remove player div
+		$(".enemy-character").remove() //remove current enemy div
 		$("#battle-info").text(""); //reset battle text
 
 		$("#player-select").attr("class", ""); //unhide character select
@@ -180,6 +182,7 @@ $(document).ready(function() {
 		$("#defender-area").attr("class", "hidden"); //hide defender area
 		$("#defender-area h2").attr("class", "hidden"); //hide defender area title
 		$("#attack-button").attr("class", "hidden"); //hide attack button
+		$("#reset-button").attr("class", "hidden"); //hide reset button
 		$("#enemy-select").attr("class", "hidden"); //hide enemy select
 
 		gameInit(); //re-initialize game
