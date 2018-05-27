@@ -55,8 +55,6 @@ var enemyHp;
 var enemyAttack;
 var playerId;
 var enemyId;
-var playerDiv;
-var enemyDiv;
 var enemiesLeft = characters.length-1;
 var inCombat = false;
 
@@ -78,12 +76,31 @@ function gameInit() { //set up game
 	}
 }
 
-function updateStats() { //update stat display
-
+function updateDisplay() { //update stats and battle info
+	$(".player-character .character-attack").text("Atk: " +playerAttack);
+	$(".player-character .character-hp").text("HP: " +playerHp);
+	$(".current-enemy .character-hp").text("HP: " +enemyHp);
+	$("#battle-info").text("You took " +enemyAttack +" damage."
+		+characters[enemyId].name +" took " +(playerAttack-characters[playerId].attack) +" damage.");
 }
 
 function progressGame() { //check win/loss, remove defeated enemies
-
+	if (playerHp <= 0) { //if player HP is 0 or below
+		$("#attack-button").prop("disabled", true); //diable attack button
+		$("#battle-info").append("<p>You have been defeated! Game Over.</p>"); //display game over message
+	}
+	else if (enemyHp <= 0) { //if enemy HP is 0 or below
+		$(".current-enemy").remove(); //remove enemy character div from DOM
+		inCombat = false;
+		enemiesLeft--; //reduce counter of enemies remaining
+		if (enemiesLeft == 0) { //if no enemies remain
+			$("#battle-info").text("You have defeated all enemies! You Win!"); //display victory message
+		}
+		else { //if there are still enemies left
+			//display won battle message
+			$("#battle-info").text("You have defeated " +characters[enemyId].name +"! Please select a new opponent.");
+		}
+	}
 }
 
 $(document).ready(function() {
@@ -95,7 +112,7 @@ $(document).ready(function() {
 		playerHp = characters[playerId].hp; //set player HP
 		playerAttack = characters[playerId].attack; //set player Attack
 
-		playerDiv = $("div[data-index=" +playerId +"]"); //store location of player character div
+		var playerDiv = $("div[data-index=" +playerId +"]"); //store location of player character div
 		playerDiv.attr("class", "character-div player-character"); //change class of PC div
 		$(playerDiv).detach().appendTo("#player-area"); //move PC to player area
 
@@ -115,7 +132,8 @@ $(document).ready(function() {
 			enemyHp = characters[enemyId].hp; //set enemy HP
 			enemyAttack = characters[enemyId].counter; //set enemy Attack
 
-			enemyDiv = $("div[data-index=" +enemyId +"]"); //store location of enemy character div
+			var enemyDiv = $("div[data-index=" +enemyId +"]"); //store location of enemy character div
+			enemyDiv.attr("class", "character-div enemy-character current-enemy"); //adds current-enemy class
 			$(enemyDiv).detach().appendTo("#defender-area"); //move PC to defender area
 			inCombat = true;
 		}
@@ -123,6 +141,12 @@ $(document).ready(function() {
 
 	//ATTACKING
 	$("#defender-area").on("click", "#attack-button", function() {
-
+		if (inCombat) {
+			playerHp -= enemyAttack; //player takes damage from enemy
+			enemyHp -= playerAttack; //enemy takes damage from player
+			playerAttack += characters[playerId].attack; //player attack increases by base attack value
+			updateDisplay();
+			progressGame();
+		}
 	});
 });
