@@ -32,7 +32,7 @@ var characters = [ //playable characters/enemies
 		music: "",
 	},
 	{
-		name: "Izanami no Okami",
+		name: "Izanami",
 		hp: 120,
 		attack: 4,
 		counter: 4,
@@ -117,7 +117,7 @@ $(document).ready(function() {
 
 		var playerDiv = $("div[data-index=" +playerId +"]"); //store location of player character div
 		playerDiv.attr("class", "character-div player-character"); //change class of PC div
-		$(playerDiv).detach().appendTo("#player-area"); //move PC to player area
+		$(playerDiv).detach().prependTo("#player-card"); //move PC to player area
 
 		for (var i = 0; i < characters.length; i++) { //change all other characters to enemies
 			if (i !== playerId) {
