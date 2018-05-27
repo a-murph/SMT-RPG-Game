@@ -5,7 +5,7 @@ var characters = [ //playable characters/enemies
 		attack: 10,
 		counter: 12,
 		image: "assets/images/orpheus.jpg",
-		music: "",
+		music: "assets/audio/orpheus.mp3",
 	},
 	{
 		name: "Izanagi",
@@ -13,7 +13,7 @@ var characters = [ //playable characters/enemies
 		attack: 7,
 		counter: 8,
 		image: "assets/images/izanagi.jpg",
-		music: "",
+		music: "assets/audio/izanagi.mp3",
 	},
 	{
 		name: "Arsene",
@@ -21,7 +21,7 @@ var characters = [ //playable characters/enemies
 		attack: 8,
 		counter: 10,
 		image: "assets/images/arsene.jpg",
-		music: "",
+		music: "assets/audio/arsene.mp3",
 	},
 	{
 		name: "Nyx Avatar",
@@ -29,7 +29,7 @@ var characters = [ //playable characters/enemies
 		attack: 2,
 		counter: 3,
 		image: "assets/images/nyx.jpg",
-		music: "",
+		music: "assets/audio/nyx.mp3",
 	},
 	{
 		name: "Izanami",
@@ -37,7 +37,7 @@ var characters = [ //playable characters/enemies
 		attack: 4,
 		counter: 4,
 		image: "assets/images/izanami.jpg",
-		music: "",
+		music: "assets/audio/izanami.mp3",
 	},
 	{
 		name: "Yaldabaoth",
@@ -45,7 +45,7 @@ var characters = [ //playable characters/enemies
 		attack: 5,
 		counter: 5,
 		image: "assets/images/yaldabaoth.jpg",
-		music: "",
+		music: "assets/audio/yaldabaoth.mp3",
 	}
 ];
 //vars to hold changing values
@@ -55,6 +55,7 @@ var enemyHp;
 var enemyAttack;
 var playerId;
 var enemyId;
+var themeMusic;
 var enemiesLeft = characters.length-1;
 var inCombat = false;
 
@@ -73,7 +74,7 @@ function gameInit() { //set up game
 		stats.append("<span class='character-hp'>HP: " +characters[i].hp +"</span>") //add HP span
 		characterDiv.append(stats); //place stats inside character div
 
-		$("#player-select").append(characterDiv);
+		$("#player-select").append(characterDiv); //attach character div to character selection area
 	}
 }
 
@@ -107,6 +108,7 @@ function progressGame() { //check win/loss, remove defeated enemies
 }
 
 $(document).ready(function() {
+	themeMusic = document.getElementById("#theme-music")
 	gameInit();
 
 	//CHARACTER SELECTION
@@ -134,6 +136,10 @@ $(document).ready(function() {
 		$("#defender-area h2").attr("class", ""); //unhide defender area title
 		$("#attack-button").attr("class", ""); //unhide attack button
 		$("#enemy-select").attr("class", ""); //unhide enemy select
+
+		themeMusic.setAttribute("src", characters[playerId].music); //set theme music
+		themeMusic.volume = 0.5;
+		themeMusic.play();
 	});
 	
 	//ENEMY SELECTION
@@ -184,6 +190,8 @@ $(document).ready(function() {
 		$("#attack-button").attr("class", "hidden"); //hide attack button
 		$("#reset-button").attr("class", "hidden"); //hide reset button
 		$("#enemy-select").attr("class", "hidden"); //hide enemy select
+
+		themeMusic.pause();
 
 		gameInit(); //re-initialize game
 	});
